@@ -1,37 +1,43 @@
 package com.stacksimplify.restservices.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User {
 
 	@Id
 	@GeneratedValue
 	private Long id;
-	@NotEmpty(message="Username is mandatory field.Please provide username")
-	@Column(name="USER_NAME",length=50,nullable=false,unique=true)
+	@NotEmpty(message = "Username is mandatory field.Please provide username")
+	@Column(name = "USER_NAME", length = 50, nullable = false, unique = true)
 	private String username;
-	@Size(min=2,message="Firstname should have atleast 2 character")
-	@Column(name="FIRST_NAME",length=50,nullable=false)
+	@Size(min = 2, message = "Firstname should have atleast 2 character")
+	@Column(name = "FIRST_NAME", length = 50, nullable = false)
 	private String firstname;
-	@Column(name="LAST_NAME",length=50,nullable=false)
+	@Column(name = "LAST_NAME", length = 50, nullable = false)
 	private String lastname;
-	@Column(name="EMAIL_ADDRESS",length=50,nullable=false)
+	@Column(name = "EMAIL_ADDRESS", length = 50, nullable = false)
 	private String email;
-	@Column(name="ROLE",length=50,nullable=false)
-    private String role;
-	@Column(name="SSN",length=50, nullable=false,unique=true)
+	@Column(name = "ROLE", length = 50, nullable = false)
+	private String role;
+	@Column(name = "SSN", length = 50, nullable = false, unique = true)
 	private String ssn;
 
+	@OneToMany(mappedBy = "user")
+	private List<Order> orders;
+
 	public User() {
-	
+
 	}
 
 	public User(Long id, String username, String firstname, String lastname, String email, String role, String ssn) {
@@ -105,10 +111,13 @@ public class User {
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
 	}
-	
-	
-	
-	
-	
-	
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
 }
