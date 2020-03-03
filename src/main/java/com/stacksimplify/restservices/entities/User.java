@@ -43,7 +43,7 @@ public class User extends RepresentationModel {
 	@JsonView(Views.Internal.class)
 	private String role;
 	@Column(name = "SSN", length = 50, nullable = true, unique = true)
-   // @JsonIgnore - > ->Static Filtering JsonIgnore
+	// @JsonIgnore - > ->Static Filtering JsonIgnore
 	@JsonView(Views.Internal.class)
 	private String ssn;
 
@@ -51,15 +51,16 @@ public class User extends RepresentationModel {
 	@JsonView(Views.Internal.class)
 	private List<Order> orders;
 
+	@Column(name = "ADDRESS")
+	private String address;
+
 	public User() {
 
 	}
 
-
-
 	public User(Long userid, @NotEmpty(message = "Username is mandatory field.Please provide username") String username,
 			@Size(min = 2, message = "Firstname should have atleast 2 character") String firstname, String lastname,
-			String email, String role, String ssn, List<Order> orders) {
+			String email, String role, String ssn, List<Order> orders, String address) {
 		super();
 		this.userid = userid;
 		this.username = username;
@@ -69,32 +70,23 @@ public class User extends RepresentationModel {
 		this.role = role;
 		this.ssn = ssn;
 		this.orders = orders;
+		this.address = address;
 	}
-
-
 
 	public Long getUserid() {
 		return userid;
 	}
 
-
-
 	public void setUserid(Long userid) {
 		this.userid = userid;
 	}
 
-
-
-
-
 	@Override
 	public String toString() {
 		return "User [userid=" + userid + ", username=" + username + ", firstname=" + firstname + ", lastname="
-				+ lastname + ", email=" + email + ", role=" + role + ", ssn=" + ssn + ", orders=" + orders + "]";
+				+ lastname + ", email=" + email + ", role=" + role + ", ssn=" + ssn + ", orders=" + orders
+				+ ", address=" + address + "]";
 	}
-
-
-
 
 	public String getUsername() {
 		return username;
@@ -150,6 +142,14 @@ public class User extends RepresentationModel {
 
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 }
